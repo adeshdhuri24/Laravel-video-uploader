@@ -13,8 +13,20 @@ class InitUploadRequest extends FormRequest
 
     public function rules(): array
     {
+        $allowed = config('upload.allowed_extensions', ['mp4', 'webm', 'mov', 'avi', 'mkv']);
+
         return [
-            'original_name' => ['required', 'string', 'max:255'],
+            'original_name' => [
+                'required',
+                'string',
+                'max:255',
+                function (string $attribute, mixed $value, \Closure $fail) use ($allowed): void {
+                    $ext = strtolower(pathinfo($value, PATHINFO_EXTENSION));
+                    if ($ext === '' || ! in_array($ext, $allowed, true)) {
+                        $fail('Only video files are allowed ('.implode(', ', $allowed).').');
+                    }
+                },
+            ],
             'file_size' => ['required', 'integer', 'min:1', 'max:'.config('upload.max_file_size')],
             'total_chunks' => ['required', 'integer', 'min:1', 'max:'.config('upload.max_total_chunks')],
             'upload_id' => ['sometimes', 'nullable', 'string', 'uuid'],
