@@ -2,6 +2,8 @@
 
 Upload large videos (chunked) through the browser. Files are stitched and stored on S3, and processing runs in the background with Laravel queues.
 
+For a high-level path from web to controllers and queues, see [upload-flow.md](upload-flow.md).
+
 ---
 
 ## What you need
