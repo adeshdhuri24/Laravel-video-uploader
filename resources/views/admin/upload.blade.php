@@ -258,6 +258,7 @@
 
             // --- POLL STATUS ---
             statusLabel.textContent = 'Processing on server…';
+            chunkInfo.textContent   = '';
             setProgress(100);
             pollStatus();
 

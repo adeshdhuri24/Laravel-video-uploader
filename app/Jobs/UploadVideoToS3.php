@@ -20,7 +20,7 @@ class UploadVideoToS3 implements ShouldQueue
 
     public int $tries = 3;
 
-    public array $backoff = [30, 60, 120];
+    public array $backoff = [5, 15, 30];
 
     public int $timeout = 600;
 
